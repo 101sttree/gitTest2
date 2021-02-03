@@ -78,7 +78,6 @@ public class boardController
 		String xString = null;
 		
 		//현재 페이지 및 페이지당 글 갯수 설정
-		//현재 페이지 및 페이지당 글 갯수 설정
 		if (nowPage == null && cntPerPage == null) 
 		{
 			nowPage = "1";
