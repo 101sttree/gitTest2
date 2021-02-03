@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.board.Interface.commentMapper">
+	
+	<select id="commentlist" parameterType="CommentVO" resultType="CommentVO">
+		select * from commenttb
+		where bno = #{bno}
+		order by cno asc 
+		limit #{start}, 10
+	</select>
+	
+	<select id="commentcount" resultType="int" parameterType="CommentVO">
+		select count(*) from commenttb 
+		where bno = #{bno}
+	</select>
+	
+	<select id="commentinfo" parameterType="int" resultType="CommentVO">
+		select * from commenttb
+		where cno = #{cno}
+	</select>
+	
+	<select id="commentgrdmax" parameterType="CommentVO" resultType="CommentVO">
+		select * from commenttb
+		where
+		origino = #{cno}
+		order by groupord desc
+		limit 1
+	</select>
+	
+	<select id="commentlast" resultType="CommentVO">
+		select * from commenttb
+		order by cno desc
+		limit 1
+	</select>
+	
+	<insert id="commentwrite" parameterType="CommentVO">
+		insert into commenttb
+		(
+			bno, 
+			uno, 
+			origino, 
+			groupord, 
+			grouplayer, 
+			cwriter, 
+			ctext,
+			cdate
+		) values
+		(
+			#{bno}, 
+			#{uno}, 
+			#{origino}, 
+			#{groupord}, 
+			#{grouplayer}, 
+			#{cwriter}, 
+			#{ctext}, 
+			now()
+		)
+	</insert>
+	
+	<delete id="commentdelete" parameterType="int">
+		delete from commenttb
+		where bno = #{bno}
+		
+	</delete>
+	<delete id="commentdeleteori" parameterType="int">
+		delete from commenttb
+		where origino = #{cno}
+		
+	</delete>
+	
+	<delete id="commentdeleteone" parameterType="int">
+		delete from commenttb
+		where cno = #{cno}
+	</delete>
+	
+	<update id="commentmody" parameterType="CommentVO">
+		update commenttb 
+		set ctext = #{ctext} 
+		where cno = #{cno}
+	</update>
+	
+	<update id="commentoriup" parameterType="CommentVO">
+		update commenttb
+		set 
+		origino = #{cno}
+		where cno = #{cno}
+		
+	</update>
+	
+	
+</mapper>

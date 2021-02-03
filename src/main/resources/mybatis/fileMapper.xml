@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.board.Interface.fileMapper">
+	<insert id="fileinsert" parameterType="FileVO">
+		insert into filetb
+		(
+			bno, 
+			uno, 
+			fname, 
+			ex, 
+			path, 
+			fsize
+		) values
+		(
+			#{bno}, 
+			#{uno}, 
+			#{fname}, 
+			#{ex}, 
+			#{path}, 
+			#{fsize}
+		)
+	</insert>
+	<select id="fileselect" parameterType="int" resultType="FileVO">
+		select * from filetb
+		where bno = #{bno}
+	</select>
+	<delete id="filedelete" parameterType="int">
+		delete from filetb
+		where bno = #{bno}
+	</delete>
+	
+	<delete id="filedeleteori" parameterType="int">
+		delete from filetb
+		where bno in
+		(
+			select bno from boardtb
+		    where origino = #{bno}
+		);
+	</delete>
+</mapper>

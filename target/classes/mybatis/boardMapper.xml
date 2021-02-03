@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.board.Interface.boardMapper">
+	
+	<select id="boardcount" resultType="int" parameterType="SearchVO">
+		select count(*) from boardtb
+		<trim prefix="where" prefixOverrides="and | or">
+			<if test="searchText != null and searchText != ''">
+				<if test="searchType == 'title'">
+					and title like concat('%',#{searchText},'%')
+				</if>
+				<if test="searchType == 'writer'">
+					and writer like concat('%',#{searchText},'%')
+				</if>
+				<if test="searchType == 'btext'">
+					and btext like concat('%',#{searchText},'%')
+				</if>
+				<if test="searchType == 'tt'">
+					and title like concat('%',#{searchText},'%')
+					or btext like concat('%',#{searchText},'%')
+				</if>
+			</if>
+		</trim>
+	</select>
+	
+	<select id="boardlist" resultType="BoardVO" parameterType="PagingVO">
+		select * from boardtb 
+		<trim prefix="where" prefixOverrides="and | or">
+			<if test="searchText != null and searchText != ''">
+				<if test="searchType == 'title'">
+					and title like concat('%',#{searchText},'%')
+				</if>
+				<if test="searchType == 'writer'">
+					and writer like concat('%',#{searchText},'%')
+				</if>
+				<if test="searchType == 'btext'">
+					and btext like concat('%',#{searchText},'%')
+				</if>
+				<if test="searchType == 'tt'">
+					and title like concat('%',#{searchText},'%')
+					or btext like concat('%',#{searchText},'%')
+				</if>
+				
+			</if>
+		</trim>
+		order by origino desc ,groupord asc 
+		limit #{start}, 10 
+	</select>
+	<select id="boardlast" resultType="BoardVO">
+		select * from boardtb
+		order by bno desc
+		limit 1
+	</select>
+	
+	<insert id="boardwrite" parameterType="BoardVO">
+		insert into boardtb
+		(
+			uno, 
+			writer, 
+			title, 
+			btext, 
+			origino,
+			groupord,
+			grouplayer,
+			bdate
+		) values
+		(
+			#{uno}, 
+			#{writer}, 
+			#{title}, 
+			#{btext}, 
+			#{origino}, 
+			#{groupord}, 
+			#{grouplayer}, 
+			now() 
+		)
+		
+	</insert>
+	
+	<select id="boarddetail" resultType="BoardVO" parameterType="int">
+		select * from boardtb
+		where bno = #{bno}
+	</select>
+	<select id="boarddetailan" resultType="BoardVO" parameterType="int">
+		select * from boardtb
+		where origino = #{origino}
+		and groupord = 1
+	</select>
+	
+	<delete id="boarddelete" parameterType="int">
+		delete from boardtb
+		where bno = #{bno}
+	</delete>
+	
+	<delete id="boarddeleteori" parameterType="int">
+		delete from boardtb
+		where origino = #{bno}
+	</delete>
+	
+	<update id="boardmody" parameterType="BoardVO">
+		update boardtb
+		set  
+		title = #{title}, 
+		btext = #{btext} 
+		where bno = #{bno}
+	</update>
+	
+	<update id="boardhit" parameterType="int">
+		update boardtb
+			set  
+			hit = hit + 1
+			where bno = #{bno}
+	</update>
+	
+	<update id="boardanup" parameterType="BoardVO">
+		update 
+		boardtb 
+		set 
+		groupord = groupord + 1 
+		where 
+		origino = #{origino} 
+		and groupord > #{groupord}
+	</update>
+	<update id="boardoriup" parameterType="BoardVO">
+		update boardtb
+		set 
+		origino = #{bno}
+		where bno = #{bno}
+		
+	</update>
+	<select id="boardgrdmax" parameterType="BoardVO" resultType="BoardVO">
+		select * from boardtb
+		where
+		origino = #{origino}
+		order by groupord desc
+		limit 1
+	</select>
+	
+	
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

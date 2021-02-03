@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-config.dtd"> 
+
+<configuration> 
+	<typeAliases>
+		<typeAlias alias="UserVO" 	 type="com.spring.board.VO.UserVO" />
+		<typeAlias alias="BoardVO" 	 type="com.spring.board.VO.BoardVO" />
+		<typeAlias alias="PagingVO"  type="com.spring.board.VO.PagingVO" />
+		<typeAlias alias="SearchVO"  type="com.spring.board.VO.SearchVO" />
+		<typeAlias alias="CommentVO" type="com.spring.board.VO.CommentVO"/>
+		<typeAlias alias="FileVO" 	 type="com.spring.board.VO.FileVO"/>
+	</typeAliases>
+</configuration>
