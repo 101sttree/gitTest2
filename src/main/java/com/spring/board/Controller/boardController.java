@@ -54,7 +54,7 @@ public class boardController
 	 * "C:\\Users\\hyosin\\Documents\\GitHub\\SpringBoard\\SpringBoard\\src\\main\\webapp\\resources\\file";
 	 */
 //=====================================================================================
-//ê¸€ ë¶ˆëŸ¬ì˜¤ê¸°
+//±Û ºÒ·¯¿À±â
 //=====================================================================================	
 	  
 	@GetMapping(value = "/")
@@ -77,8 +77,7 @@ public class boardController
 		System.out.print("");
 		String xString = null;
 		
-		//í˜„ì¬ í˜ì´ì§€ ë° í˜ì´ì§€ë‹¹ ê¸€ ê°¯ìˆ˜ ì„¤ì •
-		//í˜„ì¬ í˜ì´ì§€ ë° ê¸€ ìˆ˜ì • ê°¯ìˆ˜ ì„¤ì • ì„¤ì •
+		//ÇöÀç ÆäÀÌÁö ¹× ÆäÀÌÁö´ç ±Û °¹¼ö ¼³Á¤
 		if (nowPage == null && cntPerPage == null) 
 		{
 			nowPage = "1";
@@ -106,7 +105,7 @@ public class boardController
 		return "main";
 	}
 //=====================================================================================
-//ê¸€ ìƒì„¸ ë³´ê¸°
+//±Û »ó¼¼ º¸±â
 //=====================================================================================	
 	
 	@GetMapping(value = "/board/detail")
@@ -155,11 +154,11 @@ public class boardController
 			
 			if(boardhit > 0)
 			{
-				System.out.println("ì¡°íšŒìˆ˜ ì¦ê°€ ì„±ê³µ");
+				System.out.println("Á¶È¸¼ö Áõ°¡ ¼º°ø");
 			}
 			if(boardhit <= 0)
 			{
-				System.out.println("ì¡°íšŒìˆ˜ ì¦ê°€ ì‹¤íŒ¨");
+				System.out.println("Á¶È¸¼ö Áõ°¡ ½ÇÆĞ");
 			}
 		}
 		if(userVO == null && nullCookie == null)
@@ -171,11 +170,11 @@ public class boardController
 			
 			if(boardhit > 0)
 			{
-				System.out.println("ì¡°íšŒìˆ˜ ì¦ê°€ ì„±ê³µ");
+				System.out.println("Á¶È¸¼ö Áõ°¡ ¼º°ø");
 			}
 			if(boardhit <= 0)
 			{
-				System.out.println("ì¡°íšŒìˆ˜ ì¦ê°€ ì‹¤íŒ¨");
+				System.out.println("Á¶È¸¼ö Áõ°¡ ½ÇÆĞ");
 			}
 		}
 		
@@ -189,7 +188,7 @@ public class boardController
 	}
 	
 //=====================================================================================
-//íŒŒì¼ ë‹¤ìš´ë¡œë“œ í´ë˜ìŠ¤ ì—°ë™ ì»¨íŠ¸ë¡¤ëŸ¬
+//ÆÄÀÏ ´Ù¿î·Îµå Å¬·¡½º ¿¬µ¿ ÄÁÆ®·Ñ·¯
 //=====================================================================================		
 	
 	@RequestMapping("/common/download")
@@ -199,20 +198,20 @@ public class boardController
 		ModelAndView mv
 	)
 	{
-		//íŒŒì¼ ì •ë³´ë¥¼ ë‹´ëŠ”ë‹¤.
+		//ÆÄÀÏ Á¤º¸¸¦ ´ã´Â´Ù.
 		String fileName = (String) params.get("fileName");
 		String fullPath = UPLOAD_PATH + "/" + fileName;
 		File file = new File(fullPath);
 		
 		
-		//í•´ë‹¹ ë·°ë¡œ íŒŒì¼ ì •ë³´ë¥¼ ë³´ë‚¸ë‹¤.
+		//ÇØ´ç ºä·Î ÆÄÀÏ Á¤º¸¸¦ º¸³½´Ù.
 		mv.setViewName("downloadView");
 		mv.addObject("downloadFile", file);
 		return mv;
 	}
 	
 //=====================================================================================
-//ê¸€ ì‘ì„±
+//±Û ÀÛ¼º
 //=====================================================================================		
 	@PostMapping(value = "/board/write")
 	public String boardwrite
@@ -220,55 +219,55 @@ public class boardController
 		Model model,
 		BoardVO vo,
 		MultipartHttpServletRequest mtfRequest
-		//í™”ë©´ì—ì„œ ë°›ì•„ì˜¨ íŒŒì¼ì„ ê°€ì§€ê³  ìˆëŠ” ê°ì²´ì´ë‹¤.
+		//È­¸é¿¡¼­ ¹Ş¾Æ¿Â ÆÄÀÏÀ» °¡Áö°í ÀÖ´Â °´Ã¼ÀÌ´Ù.
 	) 
 	{
 	    try 
 	    {
 			if(vo.getBno() > 0)
-			//ë‹µê¸€ ì‘ì„±ì¼ ê²½ìš°
+			//´ä±Û ÀÛ¼ºÀÏ °æ¿ì
 			{	
-				//ë‹µê¸€ì˜ ë‹µê¸€
+				//´ä±ÛÀÇ ´ä±Û
 				if(vo.getGrouplayer() != 0)
 				{
-					//ê¸°ì¡´ ê¸€ë“¤ ìˆœì„œê°’ 1 ì¦ê°€
+					//±âÁ¸ ±Ûµé ¼ø¼­°ª 1 Áõ°¡
 					mapper.boardanup(vo);
-					//ë³¸ì¸ì˜ ê°’ì„ ë¶€ëª¨ê¸€ìˆœì„œ + 1 ë¡œ ì„¤ì • 
+					//º»ÀÎÀÇ °ªÀ» ºÎ¸ğ±Û¼ø¼­ + 1 ·Î ¼³Á¤ 
 					vo.setGroupord(vo.getGroupord()+1);
-					//ë¶€ëª¨ê¸€ì˜ ë‹µê¸€ì´ê¸° ë•Œë¬¸ì— ì¸µìˆ˜ + 1
+					//ºÎ¸ğ±ÛÀÇ ´ä±ÛÀÌ±â ¶§¹®¿¡ Ãş¼ö + 1
 					vo.setGrouplayer(vo.getGrouplayer() + 1);
-					System.out.println("ë‹µê¸€ì˜ ë‹µê¸€" + vo.toString());
+					System.out.println("´ä±ÛÀÇ ´ä±Û" + vo.toString());
 				}
-				//ì›ê¸€ì˜ ë‹µê¸€
+				//¿ø±ÛÀÇ ´ä±Û
 				if(vo.getGrouplayer() == 0)
 				{
-					//í˜„ì¬ ì‘ì„±ëœ ë§ˆì§€ë§‰ ê¸€ì˜ ìˆœì„œê°’ì„ ê°€ì ¸ì˜¨ë‹¤.
+					//ÇöÀç ÀÛ¼ºµÈ ¸¶Áö¸· ±ÛÀÇ ¼ø¼­°ªÀ» °¡Á®¿Â´Ù.
 					BoardVO	boardgrdmax = mapper.boardgrdmax(vo);
-					//ìƒˆë¡œ ì‘ì„±ë˜ëŠ” ê¸€ì˜ ìˆœì„œê°’ì„ ë§ˆì§€ë§‰ê¸€ì˜ ìˆœì„œê°’ì— + 1 ê°’ìœ¼ë¡œ ì„¤ì •
+					//»õ·Î ÀÛ¼ºµÇ´Â ±ÛÀÇ ¼ø¼­°ªÀ» ¸¶Áö¸·±ÛÀÇ ¼ø¼­°ª¿¡ + 1 °ªÀ¸·Î ¼³Á¤
 					vo.setGroupord(boardgrdmax.getGroupord()+1);
-					//ì›ê¸€ì˜ ë‹µê¸€ì´ê¸° ë•Œë¬¸ì— ì¸µìˆ˜ 1ë¡œ ì„¤ì •
+					//¿ø±ÛÀÇ ´ä±ÛÀÌ±â ¶§¹®¿¡ Ãş¼ö 1·Î ¼³Á¤
 					vo.setGrouplayer(1);
-					System.out.println("ì›ê¸€ì˜ ë‹µê¸€" + vo.toString());
+					System.out.println("¿ø±ÛÀÇ ´ä±Û" + vo.toString());
 				}
 			}
-			//ì¼ë°˜ ê¸€ ì‘ì„±ì¼ ê²½ìš°
+			//ÀÏ¹İ ±Û ÀÛ¼ºÀÏ °æ¿ì
 			int 		write 		= mapper.boardwrite(vo);
-			//ì¼ë°˜ ê¸€ ìƒì„±ì‹œ ê¸€ì˜ ê·¸ë£¹ë²ˆí˜¸(origino)ë¥¼ ê¸€ë²ˆí˜¸ë¡œ ì„¤ì •
+			//ÀÏ¹İ ±Û »ı¼º½Ã ±ÛÀÇ ±×·ì¹øÈ£(origino)¸¦ ±Û¹øÈ£·Î ¼³Á¤
 			BoardVO 	boardlast 	= mapper.boardlast(); 
 			if(vo.getOrigino() == 0)
 			{
 				mapper.boardoriup(boardlast);
 			}
-			//ê¸€ ì‘ì„±ì‹œ ë“±ë¡ëœ íŒŒì¼ ì •ë³´ë¥¼ ë‹´ì€ ê°ì²´ ìƒì„±
+			//±Û ÀÛ¼º½Ã µî·ÏµÈ ÆÄÀÏ Á¤º¸¸¦ ´ãÀº °´Ã¼ »ı¼º
 			MultipartFile mf = mtfRequest.getFile("file");
 			if(mf != null) 
 			{ 
-				//íŒŒì¼ ì •ë³´ ì¶”ì¶œ ë° ì…ë ¥ 
+				//ÆÄÀÏ Á¤º¸ ÃßÃâ ¹× ÀÔ·Â 
 				String 	originFileName 	= mf.getOriginalFilename(); 
 				long 	fileSize 		= mf.getSize(); 
 				String 	safeFile 		= UPLOAD_PATH + "\\" + originFileName; 
 				FileVO 	fileVO 			= new FileVO();
-				//íŒŒì¼ VO ê°ì²´ì— íŒŒì¼ì˜ ì •ë³´ë¥¼ ë‹´ëŠ”ë‹¤.
+				//ÆÄÀÏ VO °´Ã¼¿¡ ÆÄÀÏÀÇ Á¤º¸¸¦ ´ã´Â´Ù.
 				fileVO. setBno(boardlast.getBno());
 				fileVO. setUno(vo.getUno());
 				fileVO. setFsize(mf.getSize());
@@ -277,9 +276,9 @@ public class boardController
 				int index = originFileName.lastIndexOf('.');
 				String hwak = originFileName.substring(index); 
 				fileVO. setEx(hwak);
-				//ì‹¤ì œ ê²½ë¡œì— íŒŒì¼ ìƒì„±
+				//½ÇÁ¦ °æ·Î¿¡ ÆÄÀÏ »ı¼º
 				mf.transferTo(new File(safeFile));
-				//DBì— íŒŒì¼ ì •ë³´ ì €ì¥
+				//DB¿¡ ÆÄÀÏ Á¤º¸ ÀúÀå
 				int fileinsert = fmapper.fileinsert(fileVO); 
 			}
 		  } 
@@ -295,18 +294,18 @@ public class boardController
 	}
 	
 //=====================================================================================
-//ê¸€ ì‚­ì œ
+//±Û »èÁ¦
 //=====================================================================================		
 	@GetMapping(value = "/board/delete")
 	public String boarddelete(Model model, int bno) {
 		
 		
-		//í•´ë‹¹ ê¸€ì— ë‹µê¸€ì´ ìˆëŠ”ì§€ í™•ì¸
+		//ÇØ´ç ±Û¿¡ ´ä±ÛÀÌ ÀÖ´ÂÁö È®ÀÎ
 		BoardVO boardinfoan = mapper.boarddetailan(bno);
 		
 		
-		//ë‹µê¸€ì´ ë‹¬ë¦° ê¸€ ì‚­ì œ
-		//ë³¸ì¸ì—ê²Œ ë‹¬ë¦° ë‹µê¸€ê³¼ ë‹µê¸€ë“¤ì˜ íŒŒì¼ ë°‘ ëŒ“ê¸€ ì‚­ì œ
+		//´ä±ÛÀÌ ´Ş¸° ±Û »èÁ¦
+		//º»ÀÎ¿¡°Ô ´Ş¸° ´ä±Û°ú ´ä±ÛµéÀÇ ÆÄÀÏ ¹Ø ´ñ±Û »èÁ¦
 		if(boardinfoan != null)
 		{
 			int filedeleteori 	= fmapper.filedeleteori(bno);
@@ -314,7 +313,7 @@ public class boardController
 			int boarddeleteori 	= mapper.boarddeleteori(bno);
 		}
 		
-		//ë‹µê¸€ì´ ì—†ëŠ” ê¸€ ì‚­ì œ
+		//´ä±ÛÀÌ ¾ø´Â ±Û »èÁ¦
 		if(boardinfoan == null)
 		{
 			int fdelet 	= fmapper.filedelete(bno);
@@ -325,7 +324,7 @@ public class boardController
 		return "redirect:/";
 	}
 //=====================================================================================
-//ê¸€ ìˆ˜ì • í™”ë©´ ì´ë™
+//±Û ¼öÁ¤ È­¸é ÀÌµ¿
 //=====================================================================================	
 	
 	@GetMapping(value = "/mody")
@@ -335,7 +334,7 @@ public class boardController
 		return "board/mody";
 	}
 //=====================================================================================
-//ê¸€ ìˆ˜ì •
+//±Û ¼öÁ¤
 //=====================================================================================	
 	
 	@PostMapping(value = "/board/mody")
